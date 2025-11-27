@@ -12,12 +12,12 @@ const Auth = () => {
 
   return (
     <section className="w-screen h-screen flex flex-col text-center">
-      <div className="flex-1 w-full border-b border-n-400/70 bg-n-600"></div>
-      <div className="h-5 w-full border-b border-n-400/70 bg-n-600" />
+      <div className="max-mb:h-14 mb:flex-1 w-full border-b border-n-400/70 bg-n-600"></div>
+      <div className="h-2 mb:h-5 w-full border-b border-n-400/70 bg-n-600" />
       <div className="grow flex">
         <div className="grow h-full border-r border-n-400/70 bg-n-600" />
         <div className="w-[450px] flex flex-col border-r border-n-400/70">
-          <div className="h-max flex-1 flex flex-col gap-6 px-6 pt-4 pb-5 m-3 bg-n-600 border border-n-400/70 rounded-md">
+          <div className="h-max flex-1 flex flex-col gap-6 px-2.5 mb:px-6 pt-4 pb-5 m-2 mb:m-3 bg-n-600 border border-n-400/70 rounded-md">
             <div className="flex flex-col gap-3">
               <a href="/" className="h-full flex items-center justify-center">
                 <img src={logo} width={35} className="rounded-full" />
