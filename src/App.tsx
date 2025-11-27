@@ -1,10 +1,10 @@
-import Auth from "./components/auth/Auth";
+import Dashboard from "./components/dashboard/Dashboard";
 
 function App() {
   return (
-    <>
-      <Auth />
-    </>
+    <section className="w-screen h-screen overflow-hidden">
+      <Dashboard />
+    </section>
   );
 }
 
