@@ -1,22 +1,25 @@
 import { TbMail } from "react-icons/tb";
 import logo from "../../assets/logo.png";
 import { FcGoogle } from "react-icons/fc";
+import { useState } from "react";
+import InputField from "../ui/InputField";
 
 const Auth = () => {
+  const [isSigningIn, setIsSigningIn] = useState(true);
+  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+
   return (
     <section className="w-screen h-screen flex flex-col text-center">
-      <div className="flex-1 w-full border-b border-n-500/80 bg-n-600/70">
-      </div>
+      <div className="flex-1 w-full border-b border-n-500/80 bg-n-600/70"></div>
       <div className="h-5 w-full border-b border-n-500/80 bg-n-600/70" />
       <div className="grow flex">
         <div className="grow h-full border-r border-n-500/80 bg-n-600/70" />
         <div className="w-[450px] flex flex-col border-r border-n-500/80">
-          <div className="h-max flex-1 flex flex-col gap-6 p-6 m-3 bg-n-600/70 border border-n-500/80 rounded-md">
+          <div className="h-max flex-1 flex flex-col gap-6 px-6 pt-4 pb-5 m-3 bg-n-600/70 border border-n-500/80 rounded-md">
             <div className="flex flex-col gap-3">
-              <a
-                href="/"
-                className="h-full flex items-center justify-center p-2"
-              >
+              <a href="/" className="h-full flex items-center justify-center">
                 <img src={logo} width={35} className="rounded-full" />
               </a>
               <span className="text-sm text-n-100">
@@ -24,9 +27,12 @@ const Auth = () => {
               </span>
             </div>
 
-            <button className="flex items-center justify-center gap-3 p-2.5 bg-n-600 rounded-lg border border-n-500 transition-all duration-300 hover:bg-n-500/50 cursor-not-allowed">
-              <FcGoogle size={17} opacity={0.5} />
-              <span className="text-sm font-semibold text-n-50/50">
+            <button
+              disabled
+              className="flex items-center justify-center gap-3 p-[9px] bg-n-500 rounded-lg border border-n-400 transition-all duration-300 cursor-not-allowed"
+            >
+              <FcGoogle size={17} />
+              <span className="text-sm font-semibold text-n-50">
                 Continue with Google
               </span>
             </button>
@@ -35,37 +41,50 @@ const Auth = () => {
               <span className="text-sm text-n-100">OR</span>
               <div className="grow h-0.5 bg-n-500 rounded-full" />
             </div>
-            <div className="grid grid-cols-2 bg-n-500/80 rounded-lg p-1.5">
-              <button className=" flex items-center justify-center gap-3 p-1.5 bg-n-700 text-n-50 rounded-sm transition-all duration-300 cursor-pointer">
-                <TbMail size={20} />
-                <span className="text-sm font-semibold">Sign In</span>
-              </button>
-              <button className=" flex items-center justify-center gap-3 p-1.5 text-n-100 rounded-sm transition-all duration-300 cursor-pointer">
-                <TbMail size={20} />
-                <span className="text-sm font-semibold">Sign Up</span>
-              </button>
+            <div className="grid grid-cols-2 bg-n-500 border border-n-400 rounded-lg p-1 gap-1">
+              {[
+                { text: "Sign In", is: true },
+                { text: "Sign Up", is: false }
+              ].map((btn, index) => (
+                <button
+                  key={index}
+                  onClick={() => setIsSigningIn(btn.is)}
+                  className={`flex items-center justify-center gap-3 p-1.5 rounded-md transition-all duration-300 cursor-pointer ${
+                    btn.is === isSigningIn
+                      ? "bg-n-300/80 text-n-50"
+                      : "hover:bg-n-400 text-n-100 hover:text-n-50"
+                  }`}
+                >
+                  <span className="text-sm font-semibold">{btn.text}</span>
+                </button>
+              ))}
             </div>
-            <div className="flex flex-col gap-4">
-              <div className="flex flex-col gap-2">
-                <span className="self-start text-n-100">Email</span>
-                <input
-                  type="text"
-                  placeholder="you@example.com"
-                  className="bg-n-500/80 px-2 py-2.5 rounded-lg placeholder:text-n-100/50 text-sm tracking-wide border-none outline-none"
+            <div className="flex flex-col gap-3">
+              {!isSigningIn && (
+                <InputField
+                  placeholder="xyz"
+                  label="Username"
+                  value={username}
+                  setValue={(v: string) => setUsername(v)}
                 />
-              </div>
-              <div className="flex flex-col gap-2">
-                <span className="self-start text-n-100">Password</span>
-                <input
-                  type="password"
-                  placeholder="* * * * * * * * "
-                  className="bg-n-500/80 px-2 py-2.5 rounded-lg placeholder:text-n-100/50 text-sm tracking-wide border-none outline-none"
-                />
-              </div>
+              )}
+              <InputField
+                placeholder="you@example.com"
+                label="Email"
+                value={email}
+                setValue={(v: string) => setEmail(v)}
+              />
+              <InputField
+                placeholder="* * * * * * * * "
+                label="Password"
+                type="password"
+                value={password}
+                setValue={(v: string) => setPassword(v)}
+              />
               <button className="flex items-center justify-center gap-3 p-2 mt-2 bg-n-50 text-n-900 rounded-sm transition-all duration-300 hover:bg-n-50/90 cursor-pointer">
                 <TbMail size={20} />
                 <span className="text-sm font-semibold">
-                  Continue with Email
+                  Sign {isSigningIn ? "in" : "up"} with Email
                 </span>
               </button>
             </div>
