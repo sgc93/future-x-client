@@ -11,7 +11,7 @@ const Auth = () => {
   const [password, setPassword] = useState("");
 
   return (
-    <section className="w-screen h-screen flex flex-col text-center">
+    <section className="w-screen h-screen flex flex-col text-center overflow-y-auto hidden-scroll">
       <div className="max-mb:h-14 mb:flex-1 w-full border-b border-n-400/70 bg-n-600"></div>
       <div className="h-2 mb:h-5 w-full border-b border-n-400/70 bg-n-600" />
       <div className="grow flex">
