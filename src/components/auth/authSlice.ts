@@ -2,12 +2,8 @@ import { createSlice } from "@reduxjs/toolkit";
 import type { User } from "../../types/AuthType";
 
 const initialState: {
-  isLoading: boolean;
-  error: string | null;
   user: User | null;
 } = {
-  isLoading: false,
-  error: null,
   user: null
 };
 
@@ -15,20 +11,17 @@ export const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
-    singIn: (state) => {
-      state.isLoading = true;
-      state.error = null;
-    },
-    signInSuccess: (state, action) => {
-      state.isLoading = false;
+    authSuccess: (state, action) => {
       state.user = action.payload.user;
     },
-    singInFailure: (state, action) => {
-      state.isLoading = false;
-      state.error = action.payload.error;
+    logoutSuccess: (state) => {
+      state.user = null;
+    },
+    addUser: (state, action) => {
+      state.user = action.payload.user;
     }
   }
 });
 
-export const { singIn, signInSuccess, singInFailure } = authSlice.actions;
+export const { authSuccess, logoutSuccess, addUser } = authSlice.actions;
 export default authSlice.reducer;
