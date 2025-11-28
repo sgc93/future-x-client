@@ -1,6 +1,7 @@
 import { TbSettings, TbUser, TbUsers, TbVideoPlus } from "react-icons/tb";
 import { BiVideo } from "react-icons/bi";
-import { useState, type ReactNode } from "react";
+import { type ReactNode } from "react";
+
 const Btn = ({
   btn,
   handleClick,
@@ -28,38 +29,53 @@ const Btn = ({
       >
         {btn.icon}
       </div>
-      <span className="text-base w-max mb:max-[1117px]:hidden flex transition-all duration-300">{btn.text}</span>
+      <span className="text-base w-max mb:max-[1117px]:hidden flex transition-all duration-300">
+        {btn.text}
+      </span>
     </button>
   );
 };
 
-const Sidebar = ({isSidebarOpened}: {isSidebarOpened: boolean}) => {
-  const [selectedTab, setSelectedTab] = useState<string>("Videos");
-
-  return isSidebarOpened && (
-    <div className="max-mb:absolute z-30 flex h-full max-mb:min-w-52 min-[1200px]:min-w-42 p-1 border-r bg-n-900 border-n-400">
-      <div className="grow flex flex-col gap-1 bg-n-600 p-2 rounded-lg">
-        {[
-          { icon: <BiVideo />, text: "Videos" },
-          { icon: <TbUsers />, text: "Users" },
-          { icon: <TbVideoPlus />, text: "Add video" },
-          null,
-          { icon: <TbSettings />, text: "Settings" },
-          { icon: <TbUser />, text: "Account" }
-        ].map((btn, index) =>
-          btn ? (
-            <Btn
-              key={index}
-              btn={btn}
-              handleClick={() => setSelectedTab(btn.text)}
-              isSelected={selectedTab === btn.text}
-            />
-          ) : (
-            <div key={index} className="flex-1" />
-          )
-        )}{" "}
+const Sidebar = ({
+  isSidebarOpened,
+  tab,
+  setTab,
+  toggleSidebar
+}: {
+  isSidebarOpened: boolean;
+  tab: string;
+  setTab: (t: string) => void;
+  toggleSidebar: (t: boolean) => void;
+}) => {
+  return (
+    isSidebarOpened && (
+      <div className="max-mb:absolute z-30 flex h-full max-mb:min-w-52 min-[1200px]:min-w-42 p-1 border-r bg-n-900 border-n-400">
+        <div className="grow flex flex-col gap-1 bg-n-600 p-2 rounded-lg">
+          {[
+            { icon: <BiVideo />, text: "Videos" },
+            { icon: <TbUsers />, text: "Users" },
+            { icon: <TbVideoPlus />, text: "Add video" },
+            null,
+            { icon: <TbSettings />, text: "Settings" },
+            { icon: <TbUser />, text: "Account" }
+          ].map((btn, index) =>
+            btn ? (
+              <Btn
+                key={index}
+                btn={btn}
+                handleClick={() => {
+                  setTab(btn.text);
+                  toggleSidebar(false);
+                }}
+                isSelected={tab === btn.text}
+              />
+            ) : (
+              <div key={index} className="flex-1" />
+            )
+          )}{" "}
+        </div>
       </div>
-    </div>
+    )
   );
 };
 
